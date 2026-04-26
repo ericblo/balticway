@@ -25,14 +25,31 @@ type RouteInfo = {
   isHistorical?: boolean
 }
 
-// Intermediate waypoints on the actual 1989 Baltic Way route from Tallinn
-// through Riga to Vilnius. Including these forces Mapbox to trace a road
-// that closely follows the historical chain.
+// Intermediate waypoints traced from the official 1989 Baltic Way map
+// (Lietuvos nacionalinis muziejus / VU KC). Listed Tallinn -> Vilnius;
+// the chain's "main concentrating points" are passed through in order so
+// Mapbox snaps the line to the exact roads used on 23 August 1989.
 const HISTORICAL_WAYPOINTS: Coord[] = [
-  [24.4971, 58.3859], // Pärnu, Estonia
-  [24.1052, 56.9496], // Riga, Latvia
-  [24.3601, 55.7349], // Panevėžys, Lithuania
-  [24.7647, 55.246], // Ukmergė, Lithuania
+  // Estonia
+  [24.7561, 59.1683], // Kohila
+  [24.7929, 59.0072], // Rapla
+  [25.4317, 58.8086], // Türi
+  [25.5969, 58.3636], // Viljandi
+  [25.565, 58.1043], // Karksi-Nuia
+  // Latvia
+  [25.3367, 57.8975], // Rūjiena
+  [25.4264, 57.5408], // Valmiera
+  [25.2725, 57.3128], // Cēsis
+  [24.8542, 57.1539], // Sigulda
+  [24.1052, 56.9496], // Rīga
+  [24.1958, 56.5969], // Iecava
+  [24.18, 56.409], // Bauska
+  // Lithuania
+  [24.395, 56.0617], // Pasvalys
+  [24.3601, 55.7349], // Panevėžys
+  [24.3008, 55.5128], // Ramygala
+  [24.7647, 55.246], // Ukmergė
+  [24.9525, 55.0436], // Širvintos
 ]
 
 // Cities the user can pick that should snap to the historical chain.
