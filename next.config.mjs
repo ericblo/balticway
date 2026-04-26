@@ -1,7 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  basePath: '/balticway',
-  // ... any other existing config
-};
+const nextConfig = {}
 
 export default nextConfig
