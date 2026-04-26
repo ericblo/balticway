@@ -20,8 +20,7 @@ export default function Page() {
         <div className="mx-auto max-w-2xl">
           <CitySearch onSelect={setOrigin} selected={origin} />
           <p className="mt-3 text-xs text-muted-foreground">
-            Pick any city — we&apos;ll draw a 675km road route from there, the
-            exact length of the Baltic Way.
+            Pick any city — we&apos;ll draw a ~675km road route from there, the length of the Baltic Way.
           </p>
         </div>
 
