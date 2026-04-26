@@ -86,7 +86,17 @@ export function CitySearch({ onSelect, selected }: Props) {
             setOpen(true)
             setActiveIndex(0)
           }}
-          onFocus={() => setOpen(true)}
+          onFocus={(e) => {
+            setOpen(true)
+            // Select all so the user can immediately type a new city
+            // without having to manually clear the previously chosen one.
+            e.currentTarget.select()
+          }}
+          onClick={(e) => {
+            // Some browsers (notably mobile Safari) clear the selection on
+            // click after focus; re-select on click to keep the behavior.
+            e.currentTarget.select()
+          }}
           onKeyDown={handleKeyDown}
           placeholder="Type a city, e.g. Tallinn, Berlin, New York..."
           className="w-full bg-transparent px-3 py-4 text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
