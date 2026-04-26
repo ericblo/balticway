@@ -325,18 +325,42 @@ export function BalticMap({ origin }: Props) {
   const peopleNeeded = route ? distanceKm * PEOPLE_PER_KM : ORIGINAL_PEOPLE
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-black/40">
-      {/* The map container is a plain block element with explicit height. */}
-      <div
-        ref={mapContainer}
-        className="h-[70vh] min-h-[420px] w-full"
-        style={{ maxHeight: 720 }}
-        aria-label="Map showing the Baltic Way chain from your chosen city"
-      />
+    <div className="relative w-full">
+      <div className="relative w-full overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-black/40">
+        {/* The map container is a plain block element with explicit height. */}
+        <div
+          ref={mapContainer}
+          className="h-[60vh] min-h-[360px] w-full md:h-[70vh] md:min-h-[420px]"
+          style={{ maxHeight: 720 }}
+          aria-label="Map showing the Baltic Way chain from your chosen city"
+        />
 
-      {/* Stats overlay */}
-      <div className="pointer-events-none absolute left-3 top-3 z-10 md:left-6 md:top-6">
-        <div className="pointer-events-auto w-60 rounded-lg border border-border bg-background/85 p-4 shadow-xl shadow-black/50 backdrop-blur-md md:w-72 md:p-5">
+        {/* Legend (kept on the map at all sizes) */}
+        <div className="pointer-events-none absolute bottom-4 right-4 z-10 flex items-center gap-3 rounded-md border border-border bg-background/80 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
+          <span className="flex items-center gap-2">
+            <span className="h-0.5 w-6 bg-primary" /> Human chain
+          </span>
+        </div>
+
+        {!MAPBOX_TOKEN && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/90 p-8 text-center">
+            <div className="max-w-md">
+              <h3 className="font-serif text-2xl">Map preview unavailable</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Set the{" "}
+                <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">
+                  NEXT_PUBLIC_MAPBOX_TOKEN
+                </code>{" "}
+                environment variable to render the interactive map.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Stats panel: stacks below the map on mobile, overlays the map on md+ */}
+      <div className="mt-4 md:pointer-events-none md:absolute md:left-6 md:top-6 md:z-10 md:mt-0">
+        <div className="pointer-events-auto w-full rounded-lg border border-border bg-background/85 p-4 shadow-xl shadow-black/50 backdrop-blur-md md:w-72 md:p-5">
           <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
             The Chain
@@ -401,16 +425,15 @@ export function BalticMap({ origin }: Props) {
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                     Reaches
                   </p>
-                  <p className="mt-1 truncate text-sm text-foreground">
-                    {route.target.name}
-                    <span className="text-muted-foreground">
-                      , {route.target.country}
+                  <p className="mt-1 flex items-center gap-2 truncate text-sm text-foreground">
+                    <span className="truncate">
+                      {route.target.name}
+                      <span className="text-muted-foreground">
+                        , {route.target.country}
+                      </span>
                     </span>
-                  </p>
-                  <p className="mt-1 font-mono text-xs text-primary">
-                    {route.distanceKm.toFixed(0)} km by road
                     {route.isHistorical && (
-                      <span className="ml-2 rounded bg-primary/15 px-1.5 py-0.5 text-[9px] uppercase tracking-widest text-primary">
+                      <span className="shrink-0 rounded bg-primary/15 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-primary">
                         1989 route
                       </span>
                     )}
@@ -428,27 +451,6 @@ export function BalticMap({ origin }: Props) {
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="pointer-events-none absolute bottom-4 right-4 z-10 flex items-center gap-3 rounded-md border border-border bg-background/80 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
-        <span className="flex items-center gap-2">
-          <span className="h-0.5 w-6 bg-primary" /> Human chain
-        </span>
-      </div>
-
-      {!MAPBOX_TOKEN && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/90 p-8 text-center">
-          <div className="max-w-md">
-            <h3 className="font-serif text-2xl">Map preview unavailable</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Set the{" "}
-              <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">
-                NEXT_PUBLIC_MAPBOX_TOKEN
-              </code>{" "}
-              environment variable to render the interactive map.
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
